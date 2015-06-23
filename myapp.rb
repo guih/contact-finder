@@ -7,20 +7,15 @@ get '/' do
   send_file 'view/index.html'
 end
 
-get '/asd' do
-  puts settings.public_folder
-  send_file File.join(settings.public_folder, '11298.jpg')
-end
-
 get '/download/:file_name' do
   content_type 'application/csv'
   attachment params['file_name']
-  send_file "/tmp/#{params['file_name']}.csv"
+  send_file "./tmp/#{params['file_name']}.csv"
 end
 
 post '/search' do
   file_name = "#{params['query'].parameterize}_#{Time.now.strftime("%Y-%m-%d_%H-%M-%S")}"
-  path = "/tmp/#{file_name}.csv"
+  path = "./tmp/#{file_name}.csv"
   pid = ContactFinderWorker.perform_async(params['query'], path, params['limit'])
   content_type :json
   { pid: pid, file_name: file_name }.to_json
