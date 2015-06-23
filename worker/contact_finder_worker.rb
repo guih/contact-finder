@@ -3,7 +3,7 @@ class ContactFinderWorker
   include Sidekiq::Status::Worker
 
   def perform(term, path, limit = nil)
-    ContactFinder.new.search(term, path, limit) do |progress, total, web|
+    ContactFinder.new.search(term, path, limit.try(:to_i)) do |progress, total, web|
       self.total total
       at progress, "[#{progress}/#{total}] #{web.title} (#{web.uri})"
     end
