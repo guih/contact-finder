@@ -9,5 +9,4 @@ class ContactFinderWorker
     end
     at 100
   end
-
 end
