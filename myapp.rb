@@ -32,5 +32,5 @@ get '/status/:pid' do
   puts status
   content_type :json
   progress = status['total'].to_i.zero? ? 0 : (status['at'].to_f / status['total'].to_f * 100).to_i
-  { status: status['status'], progress: progress, message: "#{status['status']}: #{status['message']}" }.to_json
+  { status: status['status'], progress: progress, message: [status['status'], status['message']].join(": ") }.to_json
 end
