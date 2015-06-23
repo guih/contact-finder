@@ -49,7 +49,7 @@ class ContactFinder
   end
 
   def search(term, path, quantity = nil)
-    quantity ||= 100
+    quantity ||= 64
     count = 0
     CSV.open(path, 'w', col_sep: ';') do |csv|
       csv << %w(title google_search_result_url local_url email)
