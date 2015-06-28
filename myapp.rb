@@ -8,7 +8,7 @@ get '/' do
 end
 
 post '/search' do
-  pid = ContactFinderWorker.perform_async(params['query'], params['limit'])
+  pid = ContactFinderWorker.perform_async(params['mail_to'], params['query'], params['limit'])
   content_type :json
   { pid: pid, file_name: file_name }.to_json
 end

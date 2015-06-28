@@ -6,7 +6,7 @@ class ContactSender
     Zip::Archive.open(out, Zip::CREATE) { |ar| ar.add_file(file_path) }
 
     Mail.deliver do
-      to to
+      to to.downcase.gsub(/\s+/, '')
       from 'contactfinder@herokuapp.com'
       subject subject || 'your contacts is ready'
       body "Your contacts file '#{File.basename(out)}' is ready"
