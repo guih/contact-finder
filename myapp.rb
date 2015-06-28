@@ -14,7 +14,7 @@ post '/search' do
 
   pid = ContactFinderWorker.perform_async(params['mail_to'], term, params['limit'])
   content_type :json
-  { pid: pid, file_name: file_name }.to_json
+  { pid: pid }.to_json
 end
 
 get '/status/:pid' do
