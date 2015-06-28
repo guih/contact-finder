@@ -48,6 +48,13 @@ $(function() {
       .text(message);
   };
 
+  $('#mail_to').blur(function() {
+    destination = $(this).val().trim();
+    if(destination && destination.length > 0 && typeof(Storage) !== "undefined") {
+      localStorage.setItem("mail_to", destination);
+    }
+  });
+
   $('#search_btn').click(function() {
     var term = $("#search_term").val();
     if (term.trim().length == 0) {
@@ -81,5 +88,9 @@ $(function() {
         });
       }, 1000);
     });
+  });
+
+  if(typeof(Storage) !== "undefined") {
+    $('#mail_to').val(localStorage.getItem("mail_to"));
   });
 });
