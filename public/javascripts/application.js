@@ -50,7 +50,7 @@ $(function() {
 
   $('#mail_to').blur(function() {
     destination = $(this).val().trim();
-    if(destination && destination.length > 0 && typeof(Storage) !== "undefined") {
+    if (destination && destination.length > 0 && typeof(Storage) !== "undefined") {
       localStorage.setItem("mail_to", destination);
     }
   });
@@ -59,14 +59,14 @@ $(function() {
     var term = $("#search_term").val();
     if (term.trim().length == 0) {
       showError("Empty search term");
-      return
+      return;
     }
     var limit = $("#limit").val();
     var blacklist = $("#blacklist").val();
     var mail_to = $("#mail_to").val();
     if (mail_to.trim().length == 0) {
       showError("Empty destination email");
-      return
+      return;
     }
     setProgress(0);
 
@@ -93,5 +93,5 @@ $(function() {
 
   if(typeof(Storage) !== "undefined") {
     $('#mail_to').val(localStorage.getItem("mail_to"));
-  });
+  };
 });
