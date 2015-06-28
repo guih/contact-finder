@@ -38,7 +38,10 @@ GEM
       celluloid (~> 0.16.0)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
+    mail (2.6.3)
+      mime-types (>= 1.16, < 3)
     method_source (0.8.2)
+    mime-types (2.6.1)
     minitest (5.7.0)
     multi_json (1.11.1)
     multi_xml (0.5.5)
@@ -92,20 +95,23 @@ GEM
       hitimes
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    zipruby (0.3.6)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport (>= 4.0)
+  activesupport
   better_errors
   binding_of_caller
-  google-search (~> 1.0.3)
-  httparty (~> 0.13.5)
+  google-search
+  httparty
+  mail
   pry-byebug
   rerun
-  sidekiq (~> 3.0.2)
-  sidekiq-status (~> 0.5.1)
+  sidekiq
+  sidekiq-status
   sinatra
   sinatra-contrib
   thin
+  zipruby

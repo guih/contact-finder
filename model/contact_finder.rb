@@ -48,13 +48,18 @@ class ContactFinder
     data
   end
 
-  def search(term, path, quantity = nil)
+  def path_for(term)
+    File.join(".", "tmp", "#{term.parameterize}_#{Time.now.strftime("%Y-%m-%d_%H-%M-%S")}.csv")
+  end
+
+  def search(term, quantity = nil, language = 'pt-BR')
     quantity ||= 64
     count = 0
+    path = path_for(term)
     CSV.open(path, 'w', col_sep: ';') do |csv|
       csv << %w(title google_search_result_url local_url email)
       loop do
-        result = Google::Search::Web.new(offset: count, query: term)
+        result = Google::Search::Web.new(offset: count, query: term, language: language)
         result.each do |web|
           count += 1
           data = search_info(web.uri)
@@ -67,6 +72,7 @@ class ContactFinder
         break if count >= quantity || result.count == 0
       end
     end
+    path
   end
 
 end

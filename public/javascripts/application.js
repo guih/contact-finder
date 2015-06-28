@@ -6,7 +6,6 @@ $(function() {
     if (visible) {
       container.removeClass("hidden");
       search.addClass("hidden");
-      $('#download_btn').addClass("hidden");
       clearAlert();
     } else {
       container.addClass("hidden");
@@ -26,6 +25,7 @@ $(function() {
     $('#alert')
       .removeClass("hidden")
       .removeClass("alert-info")
+      .removeClass("alert-success")
       .addClass("alert-danger")
       .text(message);
   };
@@ -34,7 +34,17 @@ $(function() {
     $('#alert')
       .removeClass("hidden")
       .removeClass("alert-danger")
+      .removeClass("alert-success")
       .addClass("alert-info")
+      .text(message);
+  };
+
+  var showSuccess = function(message) {
+    $('#alert')
+      .removeClass("hidden")
+      .removeClass("alert-danger")
+      .removeClass("alert-info")
+      .addClass("alert-success")
       .text(message);
   };
 
@@ -59,10 +69,7 @@ $(function() {
           clearInterval(timer);
           setProgress(0, false);
           if (d['status'] == 'complete') {
-            $('#download_btn')
-              .removeClass("hidden")
-              .attr('href', '/download/' + data['file_name'])
-              .html('<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> ' + data['file_name']);
+            showSuccess(d['message']);
           } else {
             showError(d['message']);
           }
