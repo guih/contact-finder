@@ -10,6 +10,9 @@ $(function() {
     } else {
       container.addClass("hidden");
       search.removeClass("hidden");
+      if(typeof(Storage) !== "undefined") {
+        $('#mail_to').val(localStorage.getItem("mail_to"));
+      };
     }
     container.find('.progress-bar')
       .attr('aria-valuenow', progress)

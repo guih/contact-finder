@@ -30,7 +30,7 @@ class ContactFinder
   end
 
   def search_info(uri, data = Hash.new {|h,k| h[k] = {}}, level = 0)
-    return data if level > @max_search_level || @visited_uris.include?(uri)
+    return data if level > @max_search_level || @visited_uris.include?(uri) || @blacklisted.find {|b| uri.include? b}
     @visited_uris << uri
 
     page = HTTParty.get(uri).body
@@ -55,6 +55,7 @@ class ContactFinder
   def search(term, quantity = nil, language = 'pt-BR')
     quantity ||= 64
     count = 0
+    @blacklisted = term.scan(/-site:(\S+)/).flatten
     path = path_for(term)
     CSV.open(path, 'w', col_sep: ';') do |csv|
       csv << %w(title google_search_result_url local_url email)
