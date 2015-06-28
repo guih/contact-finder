@@ -62,6 +62,7 @@ $(function() {
       return
     }
     var limit = $("#limit").val();
+    var blacklist = $("#blacklist").val();
     var mail_to = $("#mail_to").val();
     if (mail_to.trim().length == 0) {
       showError("Empty destination email");
@@ -69,7 +70,7 @@ $(function() {
     }
     setProgress(0);
 
-    $.post('/search', { 'query' : term, 'mail_to' : mail_to, 'limit' : limit }, function(data) {
+    $.post('/search', { 'query' : term, 'mail_to' : mail_to, 'blacklist' : blacklist, 'limit' : limit }, function(data) {
       var timer = setInterval(function() {
         $.get('/status/' + data['pid'], function(d) {
           if (d['status'] == 'queued' || d['status'] == 'working') {

@@ -8,7 +8,11 @@ get '/' do
 end
 
 post '/search' do
-  pid = ContactFinderWorker.perform_async(params['mail_to'], params['query'], params['limit'])
+  term = params['query']
+  blacklist = params['blacklist'].to_s.gsub(/\s+/, '').downcase.split(',')
+  term += blacklist.map{|s| " -site:#{s}"}.join
+
+  pid = ContactFinderWorker.perform_async(params['mail_to'], term, params['limit'])
   content_type :json
   { pid: pid, file_name: file_name }.to_json
 end
